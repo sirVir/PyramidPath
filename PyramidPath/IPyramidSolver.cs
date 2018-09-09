@@ -7,5 +7,6 @@ namespace PyramidPath
     interface IPyramidSolver
     {
             IEnumerable<int> GetPath();
+            int GetMax();
     }
 }

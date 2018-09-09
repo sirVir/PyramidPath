@@ -4,7 +4,7 @@ using System.Text;
 
 namespace PyramidPath
 {
-    interface IPyramidValueProvider
+    public interface IPyramidValueProvider
     {
         int[][] GetPyramid();
     }

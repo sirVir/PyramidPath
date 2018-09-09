@@ -2,8 +2,18 @@
 
 namespace PyramidPath
 {
-    class PyramidSolver : IPyramidSolver
+    public class PyramidSolver : IPyramidSolver
     {
+        public IEnumerable<int> GetPath()
+        {
+            return _results;
+        }
+
+        public int GetMax()
+        {
+            return _maxValue;
+        }
+
         private enum ParentSide { Left = -1, Right = 0 };
 
         private readonly int[][] _pyramid;
@@ -12,6 +22,8 @@ namespace PyramidPath
         // and the second is the index of the highest scored item in the row above.
         // Nulls denote special value, where no valid parent exists and there is no possible path to be assigned in the field
         private (int?, int?)[][] _paths;
+        private int _maxValue;
+        private Stack<int> _results;
 
         /// <summary>
         /// Findes the bet path in the pyramid according to the criteria.
@@ -24,11 +36,13 @@ namespace PyramidPath
         public PyramidSolver(IPyramidValueProvider provider)
         {
             _pyramid = provider.GetPyramid();
-            _paths = new (int?, int?)[_pyramid.Length][];
+            SolvePath();
         }
 
-        public IEnumerable<int> GetPath()
+        private void SolvePath()
         {
+            _paths = new (int?, int?)[_pyramid.Length][];
+
             // top of the pyramid has the path equal the value
             _paths[0] = new (int?, int?)[1];
             _paths[0][0] = (_pyramid[0][0], null);
@@ -44,7 +58,7 @@ namespace PyramidPath
                     // for each row check the paths from the parents (left and right)
                     if (IsParentAPath(y, x, ParentSide.Left))
                     {
-                        _paths[y][x] = (_paths[y - 1][x +(int)ParentSide.Left].Item1 + _pyramid[y][x], x + (int)ParentSide.Left);
+                        _paths[y][x] = (_paths[y - 1][x + (int)ParentSide.Left].Item1 + _pyramid[y][x], x + (int)ParentSide.Left);
                     }
                     else if (IsParentAPath(y, x, ParentSide.Right))
                     {
@@ -59,27 +73,26 @@ namespace PyramidPath
             }
 
             // find the max item in the last filled row
-            int maxValue = 0;
+            _maxValue = 0;
             int? index = 0;
 
-            for (int x = 0; x < _paths[_pyramid.Length-1].Length; x++)
+            for (int x = 0; x < _paths[_pyramid.Length - 1].Length; x++)
             {
-                if (_paths[_pyramid.Length - 1][x].Item1 > maxValue)
+                if (_paths[_pyramid.Length - 1][x].Item1 > _maxValue)
                 {
-                    maxValue = _paths[_pyramid.Length - 1].Length;
+                    _maxValue = _paths[_pyramid.Length - 1][x].Item1.Value;
                     index = x;
                 }
             }
 
             // construct the path, save it in the LIFO object
-            Stack<int> results = new Stack<int>();
+            _results = new Stack<int>();
             for (int y = _pyramid.Length - 1; y >= 0; y--)
             {
-                results.Push(_pyramid[y][index.Value]);
+                _results.Push(_pyramid[y][index.Value]);
                 index = _paths[y][index.Value].Item2;
             }
 
-            return results;
         }
 
         bool IsParentAPath(int y, int x, ParentSide side)

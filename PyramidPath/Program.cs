@@ -9,7 +9,8 @@ namespace PyramidPath
             IPyramidValueProvider provider = new HardcodedPyramidProvider();
             IPyramidSolver solution = new PyramidSolver(provider);
 
-            Console.WriteLine(string.Join("->", solution.GetPath()));
+            Console.WriteLine($"Max sum: {solution.GetMax()}");
+            Console.WriteLine($"Path: {string.Join("->", solution.GetPath())}");
 
             Console.ReadKey();
         }
