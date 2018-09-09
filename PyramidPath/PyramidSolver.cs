@@ -44,14 +44,14 @@ namespace PyramidPath
                     // for each row check the paths from the parents (left and right)
                     if (IsParentAPath(y, x, ParentSide.Left))
                     {
-                        _paths[y][x] = (_paths[y - (int)ParentSide.Left][x - 1].Item1 + _pyramid[y][x], y - (int)ParentSide.Left);
+                        _paths[y][x] = (_paths[y - 1][x +(int)ParentSide.Left].Item1 + _pyramid[y][x], x + (int)ParentSide.Left);
                     }
-                    else if (IsParentAPath(y, y, ParentSide.Right))
+                    else if (IsParentAPath(y, x, ParentSide.Right))
                     {
-                        _paths[y][x] = (_paths[y - (int)ParentSide.Right][x - 1].Item1 + _pyramid[y][x], y - (int)ParentSide.Right);
+                        _paths[y][x] = (_paths[y - 1][x + (int)ParentSide.Right].Item1 + _pyramid[y][x], x + (int)ParentSide.Right);
                     }
                     // if neither matches, asign null value
-                    else if (IsParentAPath(x, y, ParentSide.Right))
+                    else if (IsParentAPath(y, x, ParentSide.Right))
                     {
                         _paths[y][x] = (null, null);
                     }
@@ -60,23 +60,23 @@ namespace PyramidPath
 
             // find the max item in the last filled row
             int maxValue = 0;
-            int index = 0;
+            int? index = 0;
 
-            for (int x = 0; x < _paths[_pyramid.Length].Length; x++)
+            for (int x = 0; x < _paths[_pyramid.Length-1].Length; x++)
             {
                 if (_paths[_pyramid.Length - 1][x].Item1 > maxValue)
                 {
-                    maxValue = _paths[_pyramid.Length].Length;
+                    maxValue = _paths[_pyramid.Length - 1].Length;
                     index = x;
                 }
             }
 
             // construct the path, save it in the LIFO object
             Stack<int> results = new Stack<int>();
-            for (int y = _pyramid.Length - 1; y <= 0; y--)
+            for (int y = _pyramid.Length - 1; y >= 0; y--)
             {
-                results.Push(_pyramid[y][index]);
-                index = _paths[y][index].Item2.Value;
+                results.Push(_pyramid[y][index.Value]);
+                index = _paths[y][index.Value].Item2;
             }
 
             return results;
@@ -85,11 +85,11 @@ namespace PyramidPath
         bool IsParentAPath(int y, int x, ParentSide side)
         {
             // are we in the array bounds
-            if (x - side >= 0)
-                // are we in the array bounds
-                if (_paths[y - 1][x - (int)side].Item1 + _pyramid[y][x] > _paths[y][x].Item1)
+            if (x + (int)side >= 0 && x + (int)side < _paths[y - 1].Length)
+                // is it a new candidate
+                if (_paths[y - 1][x + (int)side].Item1 + _pyramid[y][x] > (_paths[y][x].Item1 ?? 0))
                     // are we iterating odd-even
-                    if (_pyramid[y - 1][x - (int)side] % 2 != _pyramid[y][x] % 2)
+                    if (_pyramid[y - 1][x + (int)side] % 2 != _pyramid[y][x] % 2)
                         return true;
             return false;
         }
