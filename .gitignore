@@ -4,3 +4,5 @@
 /.vs/
 /PyramidPath/obj
 /PyramidPath/bin/
+/PyramidPathTests/obj
+/PyramidPathTests/bin/

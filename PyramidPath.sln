@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2016
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PyramidPath", "PyramidPath\PyramidPath.csproj", "{BEC135BC-3B22-4C53-9671-CDC033195F92}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PyramidPath", "PyramidPath\PyramidPath.csproj", "{BEC135BC-3B22-4C53-9671-CDC033195F92}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PyramidPathTests", "PyramidPathTests\PyramidPathTests.csproj", "{9B8269F1-DA42-49CC-8BB4-5ADFE2EDC2EB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{BEC135BC-3B22-4C53-9671-CDC033195F92}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BEC135BC-3B22-4C53-9671-CDC033195F92}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BEC135BC-3B22-4C53-9671-CDC033195F92}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B8269F1-DA42-49CC-8BB4-5ADFE2EDC2EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B8269F1-DA42-49CC-8BB4-5ADFE2EDC2EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B8269F1-DA42-49CC-8BB4-5ADFE2EDC2EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B8269F1-DA42-49CC-8BB4-5ADFE2EDC2EB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
