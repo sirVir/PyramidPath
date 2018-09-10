@@ -60,14 +60,9 @@ namespace PyramidPath
                     {
                         _paths[y][x] = (_paths[y - 1][x + (int)ParentSide.Left].Item1 + _pyramid[y][x], x + (int)ParentSide.Left);
                     }
-                    else if (IsParentAPath(y, x, ParentSide.Right))
+                    if (IsParentAPath(y, x, ParentSide.Right))
                     {
                         _paths[y][x] = (_paths[y - 1][x + (int)ParentSide.Right].Item1 + _pyramid[y][x], x + (int)ParentSide.Right);
-                    }
-                    // if neither matches, asign null value
-                    else if (IsParentAPath(y, x, ParentSide.Right))
-                    {
-                        _paths[y][x] = (null, null);
                     }
                 }
             }
