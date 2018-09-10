@@ -1,5 +1,8 @@
 # PyramidPath
-Finds the maximum Path in the pyramid.
+Finds the maximum path in the pyramid using Dynamic Programming approach. The tree is resolved iteratively, level by level and the results are saved in the helping binary tree, which stores partial solutions for each consequent row.
+
+Note:
+If only the sum of the best path would be needed, one could only store onle line of the tree in the memory, thus reducing storage complexity.
 
 Storage complexity: O(n)
 
